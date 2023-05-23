@@ -1,0 +1,50 @@
+# De versie van docker compose
+version: '3'
+
+# De netwerken die aangemaakt moeten worden
+networks:
+  # De naam van het netwerk
+  php-network:
+    # De manier waarop het netwerk verbind
+    driver: bridge
+
+# Alles services die nodig zijn binnen de container
+services:
+  # De database
+  dbserver:
+    # De image die gebruikt moet worden
+    image: mysql:8.0
+    
+    # Omgevingsvariabelen
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=AwesomeDB
+
+    # Het netwerk om mee te verbinden
+    networks:
+      - php-network
+
+    # De volume
+    volumes:
+      - ./data/:/var/lib/mysql/
+
+  # Onze app
+  php-demo:
+    # Wacht met het starten van de demo totdat MySQL is gestart
+    depends_on:
+      - dbserver
+
+    # Gebruik het docker bestand in deze map
+    build: ./
+
+    # Stel de poorten in
+    ports: 
+      - 8080:80
+
+    # Stel het netwerk in
+    networks:
+      - php-network
+
+    # De volume
+    volumes:
+      - ./src/:/var/www/html/
