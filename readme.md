@@ -7,6 +7,10 @@ Het is belangrijk dat je voor dit voorbeeld bekend bent met de termen van docker
 Als dit nog niet het geval, kijk dan onderstaande video om hier bekend met te raken:
 <https://youtu.be/R8UBnOHen2k>
 
+De PHP code die gebruikt wordt tijdens dit voorbeeld kan worden gedownload vanuit de repository zelf, 
+of via ```oefenbestanden.zip``` bestand in de hoofdmap van de repo.
+
+
 ## Dockerfile
 
 Een dockerfile is een bestand dat docker vertelt hoe een image gemaakt moet worden.
@@ -138,7 +142,7 @@ COPY ./src/ /var/www/html/
 ```
 
 Daarnaast hebben we een manier nodig om de database te bereiken.
-Hiervoor passen we ```index.php``` aan met de volgende code.
+Hiervoor maken we ```testconnection.php``` aan met de volgende code.
 Gezien dit geen instructie PHP is,
 gaan we niet verder op de code in dan de comments.
 
@@ -240,7 +244,6 @@ ENV MYSQL_DATABASE=AwesomeDB
 
 COPY ./src/create_table.sql /var/create_table.sql
 ```
-
 
 Daarnaast gaan we een nieuw PHP bestand aanmaken: ```data.php```.
 Dit wordt een pagina waarmee we contact maken met de database.
